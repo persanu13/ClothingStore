@@ -6,6 +6,8 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import router from "./router";
+
 const app = express();
 
 app.use(
@@ -25,10 +27,12 @@ server.listen(8080, () => {
 });
 
 const MONGO_URL =
-  "mongodb+srv://stamateteodor23:parola123@cluster0.ezvkxbp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://stamateteodor23:parola123@cluster0.ezvkxbp.mongodb.net/clothing_store?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => {
   console.log(error);
 });
+
+app.use("/", router());

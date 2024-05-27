@@ -13,27 +13,27 @@ const UserSchema = new mongoose.Schema({
 export const UserModel = mongoose.model("User", UserSchema);
 
 export const getUsers = () => {
-  UserModel.find();
+  return UserModel.find();
 };
 
 export const getUsersByEmail = (email: string) => {
-  UserModel.findOne({ email });
+  return UserModel.findOne({ email });
 };
 
 export const getUsersById = (id: string) => {
-  UserModel.findById(id);
+  return UserModel.findById(id);
 };
 
 export const CreateUser = (values: Record<string, any>) => {
   new UserModel(values).save().then((user: any) => {
-    user.toObject();
+    return user.toObject();
   });
 };
 
 export const DeleteUserById = (id: string) => {
-  UserModel.findOneAndDelete({ _id: id });
+  return UserModel.findOneAndDelete({ _id: id });
 };
 
 export const UpdateUserById = (id: string, values: Record<string, any>) => {
-  UserModel.findByIdAndUpdate(id, values);
+  return UserModel.findByIdAndUpdate(id, values);
 };
