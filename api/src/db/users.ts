@@ -42,5 +42,5 @@ export const DeleteUserById = (id: string) => {
 };
 
 export const UpdateUserById = (id: string, values: Record<string, any>) => {
-  return UserModel.findByIdAndUpdate(id, values).select("-__v");
+  return UserModel.findByIdAndUpdate(id, values, { new: true }).select("-__v");
 };
