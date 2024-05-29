@@ -23,6 +23,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     if (user.authentication.password !== expectedHash) {
       return res.sendStatus(403);
     }
+
     const salt = random();
     user.authentication.sessionToken = authentication(
       salt,
@@ -53,6 +54,8 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     const existingUser = await getUsersByEmail(email);
 
+    console.log(existingUser);
+
     if (existingUser) {
       return res.sendStatus(400);
     }
@@ -63,8 +66,7 @@ export const register = async (req: express.Request, res: express.Response) => {
       username,
       authentication: { salt, password: authentication(salt, password) },
     });
-
-    return res.status(200).json(user).end();
+    return res.status(200).json(user);
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
