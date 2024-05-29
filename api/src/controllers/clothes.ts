@@ -91,7 +91,7 @@ export const deleteClothing = async (
   }
 };
 
-export const updateClothing = async (
+export const updateClothingPatch = async (
   req: express.Request,
   res: express.Response
 ) => {
@@ -104,6 +104,38 @@ export const updateClothing = async (
 
     if (existingClothing) {
       return res.sendStatus(409);
+    }
+
+    const cloting: IClothing = await UpdateClothing(id, {
+      name,
+      category,
+      gender,
+      size,
+      price,
+    });
+
+    if (!cloting) {
+      return res.sendStatus(400);
+    }
+
+    return res.status(200).json(cloting);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const updateClothingPut = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { id } = req.params;
+
+    const { name, category, gender, size, price } = req.body;
+
+    if (!name || !category || !gender || !size || !price) {
+      return res.sendStatus(400);
     }
 
     const cloting: IClothing = await UpdateClothing(id, {

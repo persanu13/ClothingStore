@@ -5,7 +5,8 @@ import {
   deleteClothing,
   getAllClothing,
   getOneClothing,
-  updateClothing,
+  updateClothingPatch,
+  updateClothingPut,
 } from "../controllers/clothes";
 
 export default (router: express.Router) => {
@@ -13,5 +14,6 @@ export default (router: express.Router) => {
   router.get("/clothes/:id", getOneClothing);
   router.post("/clothes", createClothing);
   router.delete("/clothes/:id", deleteClothing);
-  router.patch("/clothes/:id", updateClothing);
+  router.patch("/clothes/:id", updateClothingPatch);
+  router.put("/clothes/:id", updateClothingPut);
 };
