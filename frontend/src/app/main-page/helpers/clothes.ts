@@ -1,8 +1,8 @@
-export interface Clothes {
-    name: string;
-    type: string;
-    gender: string
-    size: number;
-    price: number;
-  }
-  
+export interface Clothing {
+  _id: string;
+  name: string;
+  category: string;
+  gender: string;
+  size: string;
+  price: number;
+}

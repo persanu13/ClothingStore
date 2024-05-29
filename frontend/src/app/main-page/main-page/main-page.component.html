@@ -1,26 +1,22 @@
 <div class="main-container">
-    <nz-table
-      #basicTable
-      [nzData]="clothing"
-    >
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Gender</th>
-          <th>Size</th>
-          <th>Price</th>
-        </tr>
-      </thead>  
-      <tbody *ngIf="basicTable.data">
-        <tr *ngFor="let data of basicTable.data">
-          <td>{{ data.name }}</td>
-          <td>{{ data.type }}</td>
-          <td>{{ data.gender }}</td>
-          <td>{{ data.size }}</td>
-          <td>{{ data.price }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
-  
+  <nz-table #basicTable [nzData]="clothes">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Gender</th>
+        <th>Size</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="basicTable.data">
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.name }}</td>
+        <td>{{ data.category }}</td>
+        <td>{{ data.gender }}</td>
+        <td>{{ data.size }}</td>
+        <td>{{ data.price }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
