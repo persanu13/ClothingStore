@@ -3,8 +3,8 @@ import express from "express";
 import {
   DeleteUserById,
   UpdateUserById,
-  getUsers,
-  getUsersById,
+  GetUsers,
+  GetUsersById,
 } from "../db/users";
 import { IUser } from "models/user";
 
@@ -13,7 +13,7 @@ export const getAllUsers = async (
   res: express.Response
 ) => {
   try {
-    const users: IUser[] = await getUsers();
+    const users: IUser[] = await GetUsers();
     return res.status(200).json(users);
   } catch (error) {
     console.log(error);

@@ -13,28 +13,27 @@ const UserSchema = new mongoose.Schema<IUser>({
 
 export const UserModel = mongoose.model("User", UserSchema);
 
-export const getUsers = () => {
+export const GetUsers = () => {
   return UserModel.find().select("-__v");
 };
 
-export const getUsersByEmail = (email: string) => {
+export const GetUsersByEmail = (email: string) => {
   return UserModel.findOne({ email });
 };
 
-export const getUserBySessionToken = (sessionToken: string) => {
+export const GetUserBySessionToken = (sessionToken: string) => {
   return UserModel.findOne({
     "authentication.sessionToken": sessionToken,
   }).select("-__v");
 };
 
-export const getUsersById = (id: string) => {
+export const GetUsersById = (id: string) => {
   return UserModel.findById(id).select("-__v");
 };
 
-export const CreateUser = (values: Record<string, any>) => {
-  return new UserModel(values).save().then((user: any) => {
-    return user.toObject();
-  });
+export const CreateUser = async (values: Record<string, any>) => {
+  const user = await new UserModel(values).save();
+  return user.toObject();
 };
 
 export const DeleteUserById = (id: string) => {
