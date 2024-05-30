@@ -14,6 +14,8 @@ import { ClothingModalComponent } from '../clothing-modal/clothing-modal.compone
 export class MainPageComponent {
   clothes: Clothing[] = [];
 
+  searchText: string = '';
+
   constructor(
     private clothesService: ClothesService,
     private notificationService: NzNotificationService,

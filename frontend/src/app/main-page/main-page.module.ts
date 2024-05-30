@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainPageComponent } from './main-page/main-page.component';
 import { MainPageRoutingModule } from './main-page-routing.module';
+import { FormsModule } from '@angular/forms'
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -15,12 +16,15 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClothingModalComponent } from './clothing-modal/clothing-modal.component';
+import { FilterByNamePipe } from './helpers/filter-by-name.pipe';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @NgModule({
-  declarations: [MainPageComponent, ClothingModalComponent],
+  declarations: [MainPageComponent, ClothingModalComponent, FilterByNamePipe],
   imports: [
     CommonModule,
     MainPageRoutingModule,
+    FormsModule,
 
     NzTableModule,
     NzNotificationModule,
@@ -32,6 +36,7 @@ import { ClothingModalComponent } from './clothing-modal/clothing-modal.componen
     NzIconModule,
     NzModalModule,
     ReactiveFormsModule,
+    NzGridModule,
   ],
 })
 export class MainPageModule {}
