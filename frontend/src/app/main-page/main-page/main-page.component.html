@@ -19,11 +19,11 @@
   <nz-table #basicTable [nzData]="clothes | filterByName: searchText" nzBordered>
     <thead>
       <tr>
-        <th nzWidth="20%">Name</th>
-        <th nzWidth="20%">Category</th>
-        <th nzWidth="15%">Gender</th>
-        <th nzWidth="15%">Size</th>
-        <th nzWidth="15%">Price</th>
+        <th nzWidth="20%" [nzSortFn]="sortByName">Name</th>
+        <th nzWidth="20%" [nzSortFn]="sortByCategory">Category</th>
+        <th nzWidth="15%" [nzSortFn]="sortByGender">Gender</th>
+        <th nzWidth="15%" [nzSortFn]="sortBySize">Size</th>
+        <th nzWidth="15%" [nzSortFn]="sortByPrice">Price</th>
         <th nzWidth="15%">Action</th>
       </tr>
     </thead>
