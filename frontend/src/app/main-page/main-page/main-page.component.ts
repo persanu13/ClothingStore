@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { Clothing } from '../helpers/clothes';
 import { ClothesService } from '../helpers/clothes.service';
+import { AddClothingModalComponent } from '../add-clothing-modal/add-clothing-modal.component';
 
 @Component({
   selector: 'app-main-page',
@@ -11,6 +12,8 @@ import { ClothesService } from '../helpers/clothes.service';
 })
 export class MainPageComponent {
   clothes: Clothing[] = [];
+
+  @ViewChild(AddClothingModalComponent) addClothingModal!: AddClothingModalComponent;
 
   constructor(
     private clothesService: ClothesService,
@@ -52,4 +55,20 @@ export class MainPageComponent {
       }
     });
   }
+
+  handleAddClothing(clothing: any): void {
+    this.clothesService.createNewClothing(clothing.name, clothing.category, '', clothing.size, clothing.price).subscribe({
+      next: (res) => {
+        this.clothes.push(res);
+        this.notificationService.success(
+          'Success',
+          'Clothing item successfully added'
+        );
+      },
+      error: (err) => {
+        this.notificationService.error('Error', `Something went wrong: ${err}`);
+      }
+    });
+  }
+  
 }

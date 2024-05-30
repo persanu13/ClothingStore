@@ -1,3 +1,5 @@
+<button nz-button nzType="primary" (click)="addClothingModal.showModal()">Add Clothing</button>
+
 <div class="main-container">
   <nz-table #basicTable [nzData]="clothes">
     <thead>
@@ -26,3 +28,5 @@
     </tbody>
   </nz-table>
 </div>
+
+<app-add-clothing-modal #addClothingModal (addClothing)="handleAddClothing($event)"></app-add-clothing-modal>

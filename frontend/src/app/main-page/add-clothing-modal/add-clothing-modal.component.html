@@ -1,0 +1,45 @@
+
+    <form [formGroup]="addClothingForm">
+      <nz-form-item>
+        <nz-form-control>
+          <label for="name">Name</label>
+        </nz-form-control>
+        <nz-form-control>
+          <input nz-input formControlName="name" id="name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>
+          <label for="type">Type</label>
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="type" id="type" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>
+          <label for="category">Category</label>
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="category" id="category" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>
+          <label for="size">Size</label>
+        </nz-form-label>
+        <div nz-form-control>
+          <input nz-input formControlName="size" id="size" />
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>
+          <label for="price">Price</label>
+        </nz-form-label>
+        <div nz-form-control>
+          <input nz-input formControlName="price" id="price" type="number" />
+        </div>
+      </nz-form-item>
+    </form>
+
+  
