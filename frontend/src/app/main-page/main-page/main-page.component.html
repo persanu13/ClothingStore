@@ -7,6 +7,7 @@
         <th>Gender</th>
         <th>Size</th>
         <th>Price</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody *ngIf="basicTable.data">
@@ -16,6 +17,11 @@
         <td>{{ data.gender }}</td>
         <td>{{ data.size }}</td>
         <td>{{ data.price }}</td>
+        <td>
+          <button nz-button nzType="primary" nzDanger (click)="deleteItem(data._id)">
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </nz-table>

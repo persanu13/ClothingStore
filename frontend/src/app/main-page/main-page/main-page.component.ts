@@ -37,4 +37,19 @@ export class MainPageComponent {
       },
     });
   }
+
+  deleteItem(id: string): void {
+    this.clothesService.deleteClothing(id).subscribe({
+      next: (res) => {
+        this.clothes = this.clothes.filter(item => item._id !== id);
+        this.notificationService.success(
+          'Success',
+          'Item successfully deleted'
+        );
+      },
+      error: (err) => {
+        this.notificationService.error('Error', `Something went wrong: ${err}`);
+      }
+    });
+  }
 }
