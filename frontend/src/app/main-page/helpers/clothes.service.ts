@@ -39,7 +39,7 @@ export class ClothesService {
     return this.httpClient.delete(`${this.URI}/${id}`, {});
   }
 
-  editProduct(
+  editClothing(
     id: string,
     name: string,
     category: string,

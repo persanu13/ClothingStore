@@ -1,0 +1,121 @@
+<div *ngIf="clothingForm">
+  <form nz-form [formGroup]="clothingForm" (ngSubmit)="handleSubmit()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="shopping-cart">
+          <input formControlName="name" nz-input placeholder="Clothing name" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <p
+      *ngIf="
+        name?.touched && clothingForm.controls['name'].hasError('required')
+      "
+      class="error-message"
+    >
+      This field is required
+    </p>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="tags">
+          <input
+            formControlName="category"
+            nz-input
+            placeholder="Category name"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <p
+      *ngIf="
+        category?.touched &&
+        clothingForm.controls['category'].hasError('invalidSymbols')
+      "
+      class="error-message"
+    >
+      Only letters are allowed
+    </p>
+    <p
+      *ngIf="
+        category?.touched &&
+        clothingForm.controls['category'].hasError('required')
+      "
+      class="error-message"
+    >
+      This field is required
+    </p>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-select id="gender" formControlName="gender" nzPlaceHolder="Gender">
+          <nz-option nzValue="mens" nzLabel="Men's"></nz-option>
+          <nz-option nzValue="womens" nzLabel="Women's"></nz-option>
+          <nz-option nzValue="unisex" nzLabel="Unisex"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <p
+      *ngIf="
+        gender?.touched && clothingForm.controls['gender'].hasError('required')
+      "
+      class="error-message"
+    >
+      This field is required
+    </p>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-select id="size" formControlName="size" nzPlaceHolder="Size">
+          <nz-option nzValue="xs" nzLabel="XS"></nz-option>
+          <nz-option nzValue="s" nzLabel="S"></nz-option>
+          <nz-option nzValue="m" nzLabel="M"></nz-option>
+          <nz-option nzValue="l" nzLabel="L"></nz-option>
+          <nz-option nzValue="xl" nzLabel="XL"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <p
+      *ngIf="
+        gender?.touched && clothingForm.controls['gender'].hasError('required')
+      "
+      class="error-message"
+    >
+      This field is required
+    </p>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="dollar-circle">
+          <input
+            formControlName="price"
+            nz-input
+            placeholder="price"
+            type="number"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <p
+      *ngIf="
+        price?.touched && clothingForm.controls['price'].hasError('required')
+      "
+      class="error-message"
+    >
+      This field is required
+    </p>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button
+          type="submit"
+          nz-button
+          nzType="primary"
+          [disabled]="!clothingForm.valid"
+        >
+          Submit
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

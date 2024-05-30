@@ -14,19 +14,14 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AddClothingModalComponent } from './add-clothing-modal/add-clothing-modal.component';
-
-
+import { ClothingModalComponent } from './clothing-modal/clothing-modal.component';
 
 @NgModule({
-  declarations: [
-    MainPageComponent,
-    AddClothingModalComponent
-  ],
+  declarations: [MainPageComponent, ClothingModalComponent],
   imports: [
     CommonModule,
     MainPageRoutingModule,
-    
+
     NzTableModule,
     NzNotificationModule,
     NzSpinModule,
@@ -37,6 +32,6 @@ import { AddClothingModalComponent } from './add-clothing-modal/add-clothing-mod
     NzIconModule,
     NzModalModule,
     ReactiveFormsModule,
-  ]
+  ],
 })
-export class MainPageModule { }
+export class MainPageModule {}

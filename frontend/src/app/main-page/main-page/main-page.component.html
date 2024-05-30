@@ -1,15 +1,17 @@
-<button nz-button nzType="primary" (click)="addClothingModal.showModal()">Add Clothing</button>
+<button nz-button nzType="primary" (click)="handleAddClothing()">
+  Add Clothing
+</button>
 
 <div class="main-container">
   <nz-table #basicTable [nzData]="clothes">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Gender</th>
-        <th>Size</th>
-        <th>Price</th>
-        <th>Delete</th>
+        <th nzWidth="20%">Name</th>
+        <th nzWidth="20%">Category</th>
+        <th nzWidth="15%">Gender</th>
+        <th nzWidth="15%">Size</th>
+        <th nzWidth="15%">Price</th>
+        <th nzWidth="15%">Action</th>
       </tr>
     </thead>
     <tbody *ngIf="basicTable.data">
@@ -20,13 +22,23 @@
         <td>{{ data.size }}</td>
         <td>{{ data.price }}</td>
         <td>
-          <button nz-button nzType="primary" nzDanger (click)="deleteItem(data._id)">
+          <button
+            nz-button
+            nzType="primary"
+            nzDanger
+            (click)="handleDeleteClothing(data._id)"
+          >
             Delete
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="handleUpdateClothing(data)"
+          >
+            Edit
           </button>
         </td>
       </tr>
     </tbody>
   </nz-table>
 </div>
-
-<app-add-clothing-modal #addClothingModal (addClothing)="handleAddClothing($event)"></app-add-clothing-modal>

@@ -1,9 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { Clothing } from '../helpers/clothes';
 import { ClothesService } from '../helpers/clothes.service';
-import { AddClothingModalComponent } from '../add-clothing-modal/add-clothing-modal.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ClothingModalComponent } from '../clothing-modal/clothing-modal.component';
 
 @Component({
   selector: 'app-main-page',
@@ -13,11 +14,10 @@ import { AddClothingModalComponent } from '../add-clothing-modal/add-clothing-mo
 export class MainPageComponent {
   clothes: Clothing[] = [];
 
-  @ViewChild(AddClothingModalComponent) addClothingModal!: AddClothingModalComponent;
-
   constructor(
     private clothesService: ClothesService,
-    private notificationService: NzNotificationService
+    private notificationService: NzNotificationService,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +28,6 @@ export class MainPageComponent {
     this.clothesService.getListOfClothes().subscribe({
       next: (res) => {
         this.clothes = res;
-        console.log(this.clothes);
         this.notificationService.success(
           'Succes',
           'The list was succesfully retrived'
@@ -41,10 +40,27 @@ export class MainPageComponent {
     });
   }
 
-  deleteItem(id: string): void {
+  handleAddClothing(): void {
+    const modal: any = this.modal.create({
+      nzTitle: 'Add Clothing',
+      nzContent: ClothingModalComponent,
+      nzFooter: [
+        {
+          label: 'Anulare',
+          onClick: () => modal.destroy(),
+        },
+      ],
+    });
+    const instance = modal.getContentComponent() as ClothingModalComponent;
+    instance.addClothing.subscribe((clothing) => {
+      this.clothes = [clothing, ...this.clothes];
+    });
+  }
+
+  handleDeleteClothing(id: string): void {
     this.clothesService.deleteClothing(id).subscribe({
       next: (res) => {
-        this.clothes = this.clothes.filter(item => item._id !== id);
+        this.clothes = this.clothes.filter((item) => item._id !== id);
         this.notificationService.success(
           'Success',
           'Item successfully deleted'
@@ -52,23 +68,23 @@ export class MainPageComponent {
       },
       error: (err) => {
         this.notificationService.error('Error', `Something went wrong: ${err}`);
-      }
+      },
     });
   }
 
-  handleAddClothing(clothing: any): void {
-    this.clothesService.createNewClothing(clothing.name, clothing.category, '', clothing.size, clothing.price).subscribe({
-      next: (res) => {
-        this.clothes.push(res);
-        this.notificationService.success(
-          'Success',
-          'Clothing item successfully added'
-        );
-      },
-      error: (err) => {
-        this.notificationService.error('Error', `Something went wrong: ${err}`);
-      }
+  handleUpdateClothing(clothing: Clothing): void {
+    const modal: any = this.modal.create({
+      nzTitle: 'Edit Clothingt',
+      nzContent: ClothingModalComponent,
+      nzFooter: [
+        {
+          label: 'Anulare',
+          onClick: () => modal.destroy(),
+        },
+      ],
     });
+    const instance = modal.getContentComponent() as ClothingModalComponent;
+    instance.clothing = clothing;
+    instance.modal = modal;
   }
-  
 }
