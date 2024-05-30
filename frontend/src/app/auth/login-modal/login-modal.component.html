@@ -1,0 +1,80 @@
+<div *ngIf="userForm">
+    <form nz-form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="shopping-cart">
+            <input formControlName="email" nz-input placeholder="Email" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <p
+        *ngIf="
+          userForm.controls['email'].touched && 
+          userForm.controls['email'].hasError('required')
+        "
+        class="error-message"
+      >
+        This field is required
+      </p>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="tags">
+            <input
+              formControlName="password"
+              nz-input
+              placeholder="Password"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <p
+        *ngIf="
+          userForm.controls['password'].touched && 
+          userForm.controls['password'].hasError('invalidSymbols')
+        "
+        class="error-message"
+      >
+        Only letters are allowed
+      </p>
+      <p
+        *ngIf="
+          userForm.controls['password'].touched && 
+          userForm.controls['password'].hasError('required')
+        "
+        class="error-message"
+      >
+        This field is required
+      </p>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="shopping-cart">
+            <input formControlName="username" nz-input placeholder="Username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <p
+        *ngIf="
+          userForm.controls['username'].touched && 
+          userForm.controls['username'].hasError('required')
+        "
+        class="error-message"
+      >
+        This field is required
+      </p>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <button
+            type="submit"
+            nz-button
+            nzType="primary"
+            [disabled]="!userForm.valid"
+          >
+            Submit
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>

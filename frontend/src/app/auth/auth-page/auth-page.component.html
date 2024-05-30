@@ -19,4 +19,26 @@
       </div>
     </div>
   </div>
+
+  <button nz-button nzType="primary" (click)="handleAddUser()">
+    Register
+  </button>
+
+  <div class="main-container">
+    <nz-table #basicTable [nzData]="users">
+      <thead>
+        <tr>
+          <th nzWidth="20%">Email</th>
+          <th nzWidth="20%">username</th>
+          <th nzWidth="15%">Pass</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="basicTable.data">
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.email }}</td>
+          <td>{{ data.username }}</td>
+          <td>{{ data.password }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
   
