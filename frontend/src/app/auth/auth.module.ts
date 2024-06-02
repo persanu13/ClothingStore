@@ -16,16 +16,13 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-import { LoginModalComponent } from './login-modal/login-modal.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [
-    AuthPageComponent,
-    LoginModalComponent
-  ],
+  declarations: [AuthPageComponent, LoginComponent],
   imports: [
-    CommonModule, 
-    AuthRoutingModule, 
+    CommonModule,
+    AuthRoutingModule,
     FormsModule,
 
     NzTableModule,
@@ -39,6 +36,6 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
     NzModalModule,
     ReactiveFormsModule,
     NzGridModule,
-  ]
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

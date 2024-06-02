@@ -12,11 +12,11 @@ import { RegisterService } from '../helpers/register.service';
 import { User } from '../helpers/users';
 
 @Component({
-  selector: 'app-login-modal',
-  templateUrl: './login-modal.component.html',
-  styleUrls: ['./login-modal.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginModalComponent implements OnInit {
+export class LoginComponent implements OnInit {
   @Input() users!: User;
   @Input() modal!: any;
   @Output() addUser = new EventEmitter<any>();
@@ -53,26 +53,20 @@ export class LoginModalComponent implements OnInit {
     }
   }
 
-  addClothingCase(
-    email: string,
-    password: string,
-    username: string
-  ): void {
-    this.userService
-      .createNewUser(email, password, username)
-      .subscribe({
-        next: (res) => {
-          this.notificationService.success(
-            'Success',
-            'Product added successfully'
-          );
-          this.addUser.emit(res);
-          this.userForm.reset();
-        },
-        error: () => {
-          this.notificationService.error('Error', 'Something went wrong');
-        },
-      });
+  addClothingCase(email: string, password: string, username: string): void {
+    this.userService.createNewUser(email, password, username).subscribe({
+      next: (res) => {
+        this.notificationService.success(
+          'Success',
+          'Product added successfully'
+        );
+        this.addUser.emit(res);
+        this.userForm.reset();
+      },
+      error: () => {
+        this.notificationService.error('Error', 'Something went wrong');
+      },
+    });
   }
 
   // -------------- form setters ------------------

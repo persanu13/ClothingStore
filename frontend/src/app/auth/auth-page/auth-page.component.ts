@@ -5,7 +5,6 @@ import { LogInPayload } from '../helpers/login.payload';
 import { AuthService } from '../helpers/auth.service';
 import { User } from '../helpers/users';
 import { UsersService } from '../helpers/users.service';
-import { LoginModalComponent } from '../login-modal/login-modal.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -17,15 +16,20 @@ export class AuthPageComponent implements OnInit {
   rememberMe: boolean = false;
   userToken: string | null = '';
 
-  constructor(private authService: AuthService, private router: Router, private notificationService: NzNotificationService, private userService: UsersService,
-    private modal: NzModalService,
-  ) {
-    
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notificationService: NzNotificationService,
+    private userService: UsersService,
+    private modal: NzModalService
+  ) {}
 
   ngOnInit(): void {
     this.userToken = this.authService.getToken();
-    this.getListOfUsers();
+  }
+
+  Go(): void {
+    this.router.navigateByUrl('login');
   }
 
   onSuccessRequest(): void {
@@ -33,13 +37,15 @@ export class AuthPageComponent implements OnInit {
       email: 'eve.holt@reqres.in',
       password: 'cityslicka',
     };
-    this.authService.successLogIn(payload).subscribe((response: { token: string; }) => {
-      console.log(response);
-      this.authService.setToken(response.token);
-      this.userToken = this.authService.getToken();
-      sessionStorage.setItem('userToken', response.token);
-      this.router.navigateByUrl('/table');
-    });
+    this.authService
+      .successLogIn(payload)
+      .subscribe((response: { token: string }) => {
+        console.log(response);
+        this.authService.setToken(response.token);
+        this.userToken = this.authService.getToken();
+        sessionStorage.setItem('userToken', response.token);
+        this.router.navigateByUrl('/table');
+      });
   }
 
   onErrorRequest(): void {
@@ -62,7 +68,7 @@ export class AuthPageComponent implements OnInit {
       password: 'cityslicka',
     };
     this.authService.successLogIn(payload).subscribe({
-      next: (response: { token: string; }) => {
+      next: (response: { token: string }) => {
         console.log(response);
         this.authService.setToken(response.token);
         this.userToken = this.authService.getToken();
@@ -78,42 +84,6 @@ export class AuthPageComponent implements OnInit {
       error: (err: any) => {
         console.error(err);
       },
-    });
-  }
-
-  users: User[] = [];
-  
-
-  getListOfUsers(): void {
-    this.userService.getListOfUsers().subscribe({
-      next: (res) => {
-        this.users = res;
-        this.notificationService.success(
-          'Succes',
-          'The list was succesfully retrived'
-        );
-      },
-      error: (err) => {
-        this.users = [];
-        this.notificationService.error('Error', `Something went wrong: ${err}`);
-      },
-    });
-  }
-
-  handleAddUser(): void {
-    const modal: any = this.modal.create({
-      nzTitle: 'Add Clothing',
-      nzContent: LoginModalComponent,
-      nzFooter: [
-        {
-          label: 'Anulare',
-          onClick: () => modal.destroy(),
-        },
-      ],
-    });
-    const instance = modal.getContentComponent() as LoginModalComponent;
-    instance.addUser.subscribe((users) => {
-      this.users = [users, ...this.users];
     });
   }
 }

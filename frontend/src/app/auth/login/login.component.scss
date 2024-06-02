@@ -1,0 +1,41 @@
+button {
+  border-radius: 0.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 20rem;
+
+  &.success {
+    background-color: #ffda78;
+    border: 1px solid #ffda78;
+  }
+
+  &.error {
+    background-color: #fe4641;
+    border: 1px solid #fe4641;
+  }
+
+  &.register {
+    background-color: #0092ca;
+    border: 1px solid #0092ca;
+    margin-top: 1.5rem;
+  }
+}
+
+.remember-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .remember-me {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
