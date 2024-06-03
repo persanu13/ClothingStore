@@ -1,49 +1,33 @@
-<div *ngIf="userForm">
+<div *ngIf="loginForm">
   <h1>Login</h1>
-  <form nz-form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+  <form nz-form [formGroup]="loginForm">
     <nz-form-item>
       <nz-form-control>
+        <label for="email">Email</label>
         <nz-input-group nzPrefixIcon="user">
-          <input formControlName="email" nz-input placeholder="Email" />
+          <input formControlName="email" nz-input />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-    <p
-      *ngIf="
-        userForm.controls['email'].touched &&
-        userForm.controls['email'].hasError('required')
-      "
-      class="error-message"
-    >
-      This field is required
-    </p>
-
     <nz-form-item>
       <nz-form-control>
-        <nz-input-group>
-          <input formControlName="password" nz-input placeholder="Password" />
+        <label for="email">Password</label>
+        <nz-input-group nzPrefixIcon="user">
+          <input formControlName="password" nz-input type="password" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-    <p
-      *ngIf="
-        userForm.controls['password'].touched &&
-        userForm.controls['password'].hasError('invalidSymbols')
-      "
-      class="error-message"
-    >
-      Only letters are allowed
-    </p>
-    <p
-      *ngIf="
-        userForm.controls['password'].touched &&
-        userForm.controls['password'].hasError('required')
-      "
-      class="error-message"
-    >
-      This field is required
-    </p>
-    <button class="success">LOGIN</button>
+    <nz-form-item>
+      <label
+        nz-checkbox
+        [(ngModel)]="rememberMe"
+        [ngModelOptions]="{ standalone: true }"
+        >Remember me</label
+      >
+    </nz-form-item>
+
+    <p *ngIf="loginError" class="error">Email or password is incorect!</p>
+    <button (click)="handleLogin()" class="success">LOGIN</button>
   </form>
-  <button class="register">REGISTER</button>
+  <button (click)="handleRegister()" class="register">REGISTER</button>
 </div>

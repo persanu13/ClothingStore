@@ -1,15 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-
-import { UsersService } from '../helpers/users.service';
-import { RegisterService } from '../helpers/register.service';
-import { User } from '../helpers/users';
+import { LogInPayload } from '../helpers/interfaces/login.payload';
+import { AuthService } from '../helpers/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,80 +15,80 @@ import { User } from '../helpers/users';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  @Input() users!: User;
-  @Input() modal!: any;
-  @Output() addUser = new EventEmitter<any>();
-  userForm!: FormGroup<any>;
+  loginForm!: FormGroup<any>;
+  userToken: string | null = '';
+  loginError: boolean = false;
+  rememberMe: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: RegisterService,
-    private notificationService: NzNotificationService
+    private router: Router,
+    private authService: AuthService
   ) {}
+
   ngOnInit(): void {
-    this.createUserForm();
-    if (this.users) {
-      this.email = this.users.email;
-      this.password = this.users.password;
-      this.username = this.users.username;
+    this.createLoginForm();
+    this.userToken = this.authService.getToken();
+    console.log(this.userToken);
+    if (this.userToken) {
+      this.router.navigateByUrl('/table');
     }
   }
 
-  createUserForm() {
-    this.userForm = this.formBuilder.group({
+  createLoginForm() {
+    this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      username: ['', [Validators.required]],
     });
   }
 
-  handleSubmit(): void {
-    const email = this.userForm.controls['email'].value;
-    const password = this.userForm.controls['password'].value;
-    const username = this.userForm.controls['username'].value;
-    if (!this.users) {
-      this.addClothingCase(email, password, username);
-    }
-  }
-
-  addClothingCase(email: string, password: string, username: string): void {
-    this.userService.createNewUser(email, password, username).subscribe({
-      next: (res) => {
-        this.notificationService.success(
-          'Success',
-          'Product added successfully'
+  handleLogin(): void {
+    const email = this.loginForm.controls['email'].value;
+    const password = this.loginForm.controls['password'].value;
+    const payload: LogInPayload = { email, password };
+    this.authService.LogIn(payload).subscribe({
+      next: (response: {
+        authentication: {
+          sessionToken: string;
+        };
+      }) => {
+        this.authService.setToken(response.authentication.sessionToken);
+        this.userToken = this.authService.getToken();
+        sessionStorage.setItem(
+          'userToken',
+          response.authentication.sessionToken
         );
-        this.addUser.emit(res);
-        this.userForm.reset();
+        if (this.rememberMe) {
+          localStorage.setItem(
+            'userToken',
+            response.authentication.sessionToken
+          );
+        } else {
+          sessionStorage.setItem(
+            'userToken',
+            response.authentication.sessionToken
+          );
+        }
+
+        this.router.navigateByUrl('/table');
       },
-      error: () => {
-        this.notificationService.error('Error', 'Something went wrong');
+      error: (err) => {
+        this.loginError = true;
+        this.loginForm.controls['password'].setValue('');
       },
     });
   }
 
-  // -------------- form setters ------------------
-  set email(value: any) {
-    this.userForm.controls['email'].setValue(value);
-  }
-  set password(value: any) {
-    this.userForm.controls['password'].setValue(value);
-  }
-
-  set username(value: any) {
-    this.userForm.controls['username'].setValue(value);
+  handleRegister(): void {
+    this.router.navigateByUrl('/register');
   }
 
   // -------------- form getters ------------------
   get email(): AbstractControl {
-    return this.userForm.controls['email'];
+    return this.loginForm.controls['email'];
   }
 
   get password(): AbstractControl {
-    return this.userForm.controls['password'];
-  }
-
-  get username(): AbstractControl {
-    return this.userForm.controls['username'];
+    return this.loginForm.controls['password'];
   }
 }

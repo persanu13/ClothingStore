@@ -1,0 +1,154 @@
+<div *ngIf="registerForm">
+  <h1>Register</h1>
+  <form nz-form [formGroup]="registerForm" (submit)="handleSubmit()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="user">
+          <input formControlName="userName" nz-input placeholder="User name" />
+        </nz-input-group>
+        <p
+          *ngIf="
+            userName?.touched &&
+            registerForm.controls['userName'].hasError('invalidSymbols')
+          "
+          class="error-message"
+        >
+          Only letters are allowed
+        </p>
+        <p
+          *ngIf="
+            userName?.touched &&
+            registerForm.controls['userName'].hasError('required')
+          "
+          class="error-message"
+        >
+          This field is required
+        </p>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="user">
+          <input formControlName="email" nz-input placeholder="email" />
+        </nz-input-group>
+        <p
+          *ngIf="
+            email?.touched && registerForm.controls['email'].hasError('email')
+          "
+          class="error-message"
+        >
+          This need to be a email
+        </p>
+        <p
+          *ngIf="
+            email?.touched &&
+            registerForm.controls['email'].hasError('required')
+          "
+          class="error-message"
+        >
+          This field is required
+        </p>
+        <p *ngIf="isUsed && !email?.touched" class="error-message">
+          this email is used
+        </p>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            formControlName="password"
+            nz-input
+            type="password"
+            placeholder="password"
+          />
+        </nz-input-group>
+        <p
+          *ngIf="
+            password?.touched &&
+            registerForm.controls['password'].hasError('invalidPassword')
+          "
+          class="error-message"
+        >
+          Needs to contain uppercase letter, digit, and special character
+        </p>
+        <p
+          *ngIf="
+            password?.touched &&
+            registerForm.controls['password'].hasError('required')
+          "
+          class="error-message"
+        >
+          This field is required
+        </p>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            formControlName="confirmedPassword"
+            nz-input
+            type="password"
+            placeholder="confirm password"
+          />
+        </nz-input-group>
+        <p
+          *ngIf="
+            confirmedPassword?.touched &&
+            registerForm.controls['confirmedPassword'].hasError(
+              'invalidPassword'
+            )
+          "
+          class="error-message"
+        >
+          Needs to contain uppercase letter, digit, and special character
+        </p>
+        <p
+          *ngIf="
+            confirmedPassword?.touched &&
+            registerForm.controls['confirmedPassword'].hasError('required')
+          "
+          class="error-message"
+        >
+          This field is required
+        </p>
+        <p
+          *ngIf="
+            confirmedPassword?.touched &&
+            registerForm.hasError('passwordMismatch')
+          "
+          class="error-message"
+        >
+          Password are not the same
+        </p>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <div class="buttons-container">
+          <button
+            nz-button
+            nzType="primary"
+            type="submit"
+            [disabled]="!registerForm.valid"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            nzDanger
+            nz-button
+            nzType="primary"
+            (click)="handleBack()"
+          >
+            Back
+          </button>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

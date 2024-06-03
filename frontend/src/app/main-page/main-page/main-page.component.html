@@ -1,10 +1,15 @@
-<button nz-button nzType="primary" (click)="handleAddClothing()">
+<button
+  nz-button
+  class="add-button"
+  nzType="primary"
+  (click)="handleAddClothing()"
+>
   Add Clothing
 </button>
 
 <nz-row class="search-container" [nzJustify]="'center'" [nzAlign]="'middle'">
   <nz-col [nzSpan]="6">
-    <nz-input-group nzSearch>
+    <nz-input-group nzSearch nzPrefixIcon="search">
       <input
         type="text"
         nz-input
@@ -16,15 +21,19 @@
 </nz-row>
 
 <div class="main-container">
-  <nz-table #basicTable [nzData]="clothes | filterByName: searchText" nzBordered>
+  <nz-table
+    #basicTable
+    [nzData]="clothes | filterByName : searchText"
+    nzBordered
+  >
     <thead>
       <tr>
         <th nzWidth="20%" [nzSortFn]="sortByName">Name</th>
         <th nzWidth="20%" [nzSortFn]="sortByCategory">Category</th>
         <th nzWidth="15%" [nzSortFn]="sortByGender">Gender</th>
         <th nzWidth="15%" [nzSortFn]="sortBySize">Size</th>
-        <th nzWidth="15%" [nzSortFn]="sortByPrice">Price</th>
-        <th nzWidth="15%">Action</th>
+        <th nzWidth="20%" [nzSortFn]="sortByPrice">Price</th>
+        <th nzWidth="10%">Action</th>
       </tr>
     </thead>
     <tbody *ngIf="basicTable.data">
@@ -34,21 +43,21 @@
         <td>{{ data.gender }}</td>
         <td>{{ data.size }}</td>
         <td>{{ data.price }}</td>
-        <td>
+        <td class="action">
+          <button
+            nz-button
+            nzType="primary"
+            (click)="handleUpdateClothing(data)"
+          >
+            <span nz-icon nzType="edit" nzTheme="outline"></span>
+          </button>
           <button
             nz-button
             nzType="primary"
             nzDanger
             (click)="handleDeleteClothing(data._id)"
           >
-            Delete
-          </button>
-          <button
-            nz-button
-            nzType="primary"
-            (click)="handleUpdateClothing(data)"
-          >
-            Edit
+            <span nz-icon nzType="delete" nzTheme="outline"></span>
           </button>
         </td>
       </tr>

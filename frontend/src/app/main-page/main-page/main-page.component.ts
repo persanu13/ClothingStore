@@ -6,7 +6,6 @@ import { ClothesService } from '../helpers/clothes.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ClothingModalComponent } from '../clothing-modal/clothing-modal.component';
 
-
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -77,7 +76,7 @@ export class MainPageComponent {
 
   handleUpdateClothing(clothing: Clothing): void {
     const modal: any = this.modal.create({
-      nzTitle: 'Edit Clothingt',
+      nzTitle: 'Edit Clothing',
       nzContent: ClothingModalComponent,
       nzFooter: [
         {
@@ -92,8 +91,9 @@ export class MainPageComponent {
   }
 
   sortByName = (a: Clothing, b: Clothing) => a.name.localeCompare(b.name);
-  
-  sortByCategory = (a: Clothing, b: Clothing) => a.category.localeCompare(b.category);
+
+  sortByCategory = (a: Clothing, b: Clothing) =>
+    a.category.localeCompare(b.category);
 
   sortByGender = (a: Clothing, b: Clothing) => a.gender.localeCompare(b.gender);
 

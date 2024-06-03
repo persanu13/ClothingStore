@@ -17,9 +17,11 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
-  declarations: [AuthPageComponent, LoginComponent],
+  declarations: [AuthPageComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -36,6 +38,7 @@ import { LoginComponent } from './login/login.component';
     NzModalModule,
     ReactiveFormsModule,
     NzGridModule,
+    NzCheckboxModule,
   ],
 })
 export class AuthModule {}

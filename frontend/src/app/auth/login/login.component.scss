@@ -1,15 +1,31 @@
+h1 {
+  color: #393e46;
+}
+
+.error {
+  color: #fe4641;
+}
+
 button {
   border-radius: 0.5rem;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   margin: 0;
   padding: 0.5rem 1rem;
   text-align: center;
   vertical-align: middle;
   min-width: 20rem;
+  margin-top: 1rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 1;
+  }
 
   &.success {
     background-color: #ffda78;
@@ -24,18 +40,10 @@ button {
   &.register {
     background-color: #0092ca;
     border: 1px solid #0092ca;
-    margin-top: 1.5rem;
   }
 }
 
-.remember-container {
+.remember-me {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  .remember-me {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  align-items: center;
 }

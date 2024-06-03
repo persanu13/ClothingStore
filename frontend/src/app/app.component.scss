@@ -10,3 +10,17 @@
   letter-spacing: 0.2rem;
   margin-top: 1rem;
 }
+
+.logout {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  color: #393e46;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  &:hover {
+    color: rgb(255, 0, 60);
+  }
+}
